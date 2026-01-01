@@ -1,0 +1,33 @@
+/* ======================
+   THEME VARIABLES
+====================== */
+:root {
+  --bg: #f5f7fb;
+  --card: #ffffff;
+  --text: #111;
+  --subtext: #555;
+  --border: #e5e7eb;
+
+  --primary: #4caf50;
+  --danger: #ff4d4f;
+  --success: #22c55e;
+  --accent: #3ddc97;
+
+  --shadow: 0 10px 30px rgba(0,0,0,.08);
+}
+
+/* 🌙 DARK MODE */
+body.dark {
+  --bg: #0f1115;
+  --card: #171923;
+  --text: #f1f5f9;
+  --subtext: #a1a1aa;
+  --border: #2a2d3a;
+
+  --primary: #4ade80;
+  --danger: #f87171;
+  --success: #22c55e;
+  --accent: #22d3ee;
+
+  --shadow: 0 12px 40px rgba(0,0,0,.6);
+}

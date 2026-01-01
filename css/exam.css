@@ -1,0 +1,57 @@
+.page-exam {
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.exam-header {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.word {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.question-type {
+  color: var(--subtext);
+}
+
+.answers {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.answer {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  cursor: pointer;
+}
+
+.answer.correct {
+  background: rgba(34,197,94,.15);
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.answer.wrong {
+  background: rgba(248,113,113,.15);
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.answer.locked {
+  pointer-events: none;
+  opacity: .85;
+}
+
+.exam-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}

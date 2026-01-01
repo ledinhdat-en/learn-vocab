@@ -1,0 +1,112 @@
+/* ======================
+   DEFAULT = DARK
+====================== */
+:root {
+  --bg: #0f1115;
+  --card: #171923;
+  --text: #f1f5f9;
+  --subtext: #a1a1aa;
+  --border: #2a2d3a;
+
+  --primary: #4ade80;
+  --danger: #f87171;
+  --accent: #22d3ee;
+}
+
+/* ======================
+   SYSTEM LIGHT (NO FLASH)
+====================== */
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --text: #111;
+    --subtext: #555;
+    --border: #e5e7eb;
+
+    --primary: #4caf50;
+    --danger: #ff4d4f;
+    --accent: #3ddc97;
+  }
+}
+
+/* ======================
+   USER FORCE LIGHT
+====================== */
+html.light {
+  --bg: #f5f7fb;
+  --card: #ffffff;
+  --text: #111;
+  --subtext: #555;
+  --border: #e5e7eb;
+
+  --primary: #4caf50;
+  --danger: #ff4d4f;
+  --accent: #3ddc97;
+}
+
+/* ======================
+   GLOBAL
+====================== */
+html, body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+
+* {
+  box-sizing: border-box;
+  transition: background .25s, color .25s, border .25s;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* CARD */
+.card {
+  background: var(--card);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+/* TEXT */
+.muted {
+  color: var(--subtext);
+}
+
+/* BUTTON */
+button {
+  background: var(--primary);
+  color: #000;
+  border: none;
+  border-radius: 14px;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button.ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+button.danger {
+  background: var(--danger);
+}
+
+/* INPUT */
+input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+}

@@ -1,0 +1,192 @@
+/* ======================
+   PAGE
+====================== */
+.page-flashcard {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 20px;
+}
+
+/* ======================
+   CARD WRAPPER
+====================== */
+.flashcard-wrapper {
+  perspective: 1200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ======================
+   FLASHCARD
+====================== */
+.flashcard-card {
+  width: 100%;
+  max-width: 420px;
+  height: 260px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(.4,.2,.2,1);
+  cursor: pointer;
+}
+
+.flashcard-card.flipped {
+  transform: rotateY(180deg);
+}
+
+/* ======================
+   CARD FACE
+====================== */
+.card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 22px;
+  padding: 28px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+body.dark .card-face {
+  backdrop-filter: blur(12px);
+}
+
+/* FRONT */
+.card-front {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: .5px;
+}
+
+/* BACK */
+.card-back {
+  transform: rotateY(180deg);
+  gap: 12px;
+}
+
+/* ======================
+   CONTENT
+====================== */
+.word {
+  font-size: 36px;
+  font-weight: 800;
+}
+
+.meaning {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.paraphrase {
+  font-size: 16px;
+}
+
+.example {
+  font-size: 15px;
+  font-style: italic;
+}
+
+.hint {
+  margin-top: 12px;
+  font-size: 13px;
+  opacity: .7;
+}
+
+/* ======================
+   ACTION BUTTONS
+====================== */
+.actions-large {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.actions-large .btn {
+  flex: 1;
+  max-width: 180px;
+  padding: 16px 20px;
+  font-size: 18px;
+  border-radius: 18px;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .flashcard-card {
+    height: 240px;
+  }
+
+  .word {
+    font-size: 30px;
+  }
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.container {
+  padding: 20px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.card {
+  background: var(--card-bg);
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.action {
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.action:hover {
+  transform: translateY(-2px);
+}
+
+.summary .card {
+  text-align: center;
+}
+
+.big {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.highlight {
+  color: #e63946;
+}
+
+.charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.muted {
+  opacity: 0.7;
+}

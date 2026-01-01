@@ -1,0 +1,84 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.container {
+  padding: 20px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.action {
+  cursor: pointer;
+}
+
+.action:hover {
+  transform: translateY(-2px);
+}
+
+.charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+/* ======================
+   SUMMARY = DASHBOARD STATS (KHÔNG PHẢI NÚT)
+====================== */
+.summary {
+  margin-top: 4px;
+}
+
+.summary .card {
+  background: rgba(0, 0, 0, 0.025);
+  border-left: 4px solid rgba(0, 0, 0, 0.12);
+  box-shadow: none;
+  cursor: default;
+}
+
+/* Không cho cảm giác hover */
+.summary .card:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* Tiêu đề nhỏ, giống nhãn */
+.summary h4 {
+  font-size: 0.85rem;
+  font-weight: 500;
+  opacity: 0.6;
+  margin-bottom: 6px;
+}
+
+/* SỐ LIỆU = TÂM ĐIỂM */
+.summary .big {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+/* Màu nhấn cho từng loại */
+.summary .card:nth-child(1) { border-left-color: #ff7a18; } /* streak */
+.summary .card:nth-child(2) { border-left-color: #3b82f6; } /* learned */
+.summary .card:nth-child(3) { border-left-color: #ef4444; } /* due */
+.summary .card:nth-child(4) { border-left-color: #10b981; } /* time */
+.summary .card:nth-child(5) { border-left-color: #6366f1; } /* avg */
+
+/* Số cần ôn nổi hơn */
+.summary .highlight {
+  color: #ef4444;
+}
