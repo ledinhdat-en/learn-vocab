@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+   <script>
+    (function () {
+      const theme = localStorage.getItem("theme") || "light";
+      document.documentElement.classList.add(theme);
+    })();
+  </script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./css/theme.css">
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/dashboard.css">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <h2>📚 Flashcard</h2>
+    <div class="header-actions">
+      <button id="themeToggle" class="ghost">🌙 / ☀️</button>
+      <button id="logoutBtn" class="ghost">Logout</button>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="container">
+
+    <!-- QUICK ACTIONS -->
+    <section class="grid">
+      <div class="card action" id="learnNew">
+        <h3>🆕 Học từ mới</h3>
+        <p class="muted">Từ chưa học</p>
+      </div>
+
+      <div class="card action" id="reviewOld">
+        <h3>🔁 Ôn hôm nay</h3>
+        <p class="muted">Từ đến hạn</p>
+      </div>
+
+      <div class="card action" id="exam">
+        <h3>📝 Kiểm tra</h3>
+        <p class="muted">Trắc nghiệm</p>
+      </div>
+
+      <div class="card action" id="addVocab">
+        <h3>➕ Thêm từ</h3>
+        <p class="muted">Vocab mới</p>
+      </div>
+    </section>
+
+    <!-- SUMMARY -->
+    <section class="summary grid">
+      <div class="card">
+        <h4>🔥 Streak</h4>
+        <p class="big" id="streak">0 ngày</p>
+      </div>
+
+      <div class="card">
+        <h4>📘 Đã học</h4>
+        <p class="big" id="learnedCount">0 từ</p>
+      </div>
+
+      <div class="card">
+        <h4>🔁 Cần ôn hôm nay</h4>
+        <p class="big highlight" id="dueToday">0 từ</p>
+      </div>
+
+      <div class="card">
+        <h4>⏳ Tổng giờ học</h4>
+        <p class="big" id="totalTime">0 giờ</p>
+      </div>
+
+      <div class="card">
+        <h4>⏱️ TB / ngày</h4>
+        <p class="big" id="avgTime">0 phút</p>
+      </div>
+    </section>
+
+    <!-- CHARTS -->
+    <section class="charts">
+      <div class="card">
+        <h3>Số từ đã học theo ngày</h3>
+        <canvas id="dailyChart"></canvas>
+      </div>
+
+      <div class="card">
+        <h3>Phân bố điểm ghi nhớ</h3>
+        <canvas id="pointChart"></canvas>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- JS -->
+  <script type="module" src="./js/theme.js"></script>
+  <script type="module" src="./js/dashboard.js"></script>
+</body>
+</html>
