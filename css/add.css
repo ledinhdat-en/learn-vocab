@@ -1,0 +1,97 @@
+/* add.css - Full Light & Dark Mode */
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 500px;
+  background-color: var(--bg-card);
+  padding: 30px 25px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  margin: 40px auto;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+/* Heading */
+.container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: var(--text-primary);
+  font-size: 28px;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+/* Form */
+#add-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Inputs & Textareas */
+#add-form input,
+#add-form textarea {
+  padding: 14px;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: var(--bg-input);
+  color: var(--text-primary);
+  transition: all 0.3s;
+}
+
+#add-form input:focus,
+#add-form textarea:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 8px var(--accent-color-light);
+}
+
+textarea {
+  min-height: 70px;
+  resize: vertical;
+}
+
+/* Button */
+#add-form button#add {
+  padding: 14px;
+  background-color: var(--accent-color);
+  color: var(--text-button);
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+#add-form button#add:hover {
+  background-color: var(--accent-color-dark);
+  box-shadow: 0 4px 12px var(--accent-color-light);
+}
+
+/* ------------------ Light & Dark Theme Variables ------------------ */
+:root {
+  /* Light theme */
+  --bg-card: #ffffff;
+  --bg-input: #fdfdfd;
+  --border-color: #ccc;
+  --text-primary: #111111;
+  --accent-color: #1E90FF;
+  --accent-color-dark: #1C86EE;
+  --accent-color-light: rgba(30,144,255,0.4);
+  --text-button: #ffffff;
+}
+
+.dark {
+  /* Dark theme */
+  --bg-card: #1e1e2f;
+  --bg-input: #2a2a3d;
+  --border-color: #555;
+  --text-primary: #eee;
+  --accent-color: #FF6B6B;
+  --accent-color-dark: #FF5252;
+  --accent-color-light: rgba(255,107,107,0.4);
+  --text-button: #fff;
+}

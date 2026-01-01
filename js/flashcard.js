@@ -1,38 +1,42 @@
 import { sb, requireUser } from "./supabase.js"
 
+// ======================
+// USER
+// ======================
 const user = await requireUser()
 const today = new Date().toISOString().slice(0, 10)
 
-/* ======================
-   SESSION / TIME STATE
-====================== */
+// ======================
+// SESSION / TIME STATE
+// ======================
 let studyStart = null
 let accumulated = 0
 let statsInitialized = false
 
-/* ======================
-   FLASHCARD STATE
-====================== */
+// ======================
+// FLASHCARD STATE
+// ======================
 let queue = []
 let current = null
 
-/* ======================
-   DOM
-====================== */
+// ======================
+// DOM ELEMENTS
+// ======================
 const card = document.getElementById("card")
 const wordEl = document.getElementById("word")
 const meaningEl = document.getElementById("meaning")
 const paraphraseEl = document.getElementById("paraphrase")
 const exampleEl = document.getElementById("example")
+const wordTypeEl = document.getElementById("word_type")
+const topicEl = document.getElementById("topic")
 
 const correctBtn = document.getElementById("correct")
 const wrongBtn = document.getElementById("wrong")
 
-/* ======================
-   USER PROFILE
-====================== */
+// ======================
+// USER PROFILE
+// ======================
 let profile = null
-
 async function loadProfile() {
   const { data, error } = await sb
     .from("app_users")
@@ -44,19 +48,16 @@ async function loadProfile() {
   profile = data
 }
 
-/* ======================
-   STUDY TIME CORE
-====================== */
+// ======================
+// STUDY TIME CORE
+// ======================
 function startStudy() {
-  if (studyStart === null) {
-    studyStart = Date.now()
-  }
+  if (studyStart === null) studyStart = Date.now()
 }
 
 async function stopStudy() {
   if (studyStart !== null) {
-    const now = Date.now()
-    accumulated += Math.floor((now - studyStart) / 1000)
+    accumulated += Math.floor((Date.now() - studyStart) / 1000)
     studyStart = null
     await flushStudyTime()
   }
@@ -64,10 +65,7 @@ async function stopStudy() {
 
 async function flushStudyTime() {
   if (accumulated <= 0) return
-
-  profile.total_study_seconds =
-    (profile.total_study_seconds || 0) + accumulated
-
+  profile.total_study_seconds = (profile.total_study_seconds || 0) + accumulated
   accumulated = 0
 
   await sb.from("app_users").update({
@@ -76,9 +74,9 @@ async function flushStudyTime() {
   }).eq("id", user.id)
 }
 
-/* ======================
-   STREAK INIT (1 lần / session)
-====================== */
+// ======================
+// STREAK INIT
+// ======================
 async function initStreakIfNeeded() {
   if (statsInitialized) return
   statsInitialized = true
@@ -106,15 +104,12 @@ async function initStreakIfNeeded() {
   }).eq("id", user.id)
 }
 
-/* ======================
-   LOAD QUEUE
-====================== */
+// ======================
+// LOAD QUEUE
+// ======================
 const DAILY_NEW_LIMIT = 50
-
 async function loadQueue() {
-  /* ======================
-     1. ĐẾM SỐ TỪ ĐÃ HỌC HÔM NAY
-  ====================== */
+  // 1. đếm số từ đã học hôm nay
   const { count, error: countError } = await sb
     .from("user_vocab")
     .select("*", { count: "exact", head: true })
@@ -123,40 +118,26 @@ async function loadQueue() {
     .lte("last_review", today)
 
   if (countError) throw countError
-
   const learnedCountToday = count || 0
   const remaining = DAILY_NEW_LIMIT - learnedCountToday
-
   if (remaining <= 0) {
     alert("Bạn đã học đủ 50 từ mới hôm nay 🎉")
     location.href = "dashboard.html"
     return
   }
 
-  /* ======================
-     2. LẤY DANH SÁCH TỪ ĐÃ HỌC (MỌI NGÀY)
-  ====================== */
+  // 2. lấy danh sách từ đã học mọi ngày
   const { data: learned, error: learnedError } = await sb
     .from("user_vocab")
     .select("vocab_id")
     .eq("user_id", user.id)
 
   if (learnedError) throw learnedError
-
   const learnedIds = learned?.map(v => v.vocab_id) || []
 
-  /* ======================
-     3. LOAD TỪ MỚI (LIMIT THEO NGÀY)
-  ====================== */
-  let query = sb
-    .from("vocab")
-    .select("*")
-    .limit(remaining)
-
-  if (learnedIds.length > 0) {
-    query = query.not("id", "in", `(${learnedIds.join(",")})`)
-  }
-
+  // 3. load từ mới (limit theo ngày)
+  let query = sb.from("vocab").select("*").limit(remaining)
+  if (learnedIds.length > 0) query = query.not("id", "in", `(${learnedIds.join(",")})`)
   const { data: vocab, error } = await query
   if (error) throw error
 
@@ -169,12 +150,11 @@ async function loadQueue() {
   queue = vocab
 }
 
-/* ======================
-   SHOW CARD
-====================== */
+// ======================
+// SHOW NEXT CARD
+// ======================
 function showNext() {
   current = queue.shift()
-
   if (!current) {
     stopStudy()
     alert("Hoàn thành 🎉")
@@ -187,33 +167,32 @@ function showNext() {
   meaningEl.textContent = current.meaning
   paraphraseEl.textContent = current.paraphrase || ""
   exampleEl.textContent = current.example || ""
+  wordTypeEl.textContent = current.word_type || ""
+  topicEl.textContent = current.topic || ""
 }
 
-/* ======================
-   CARD FLIP
-====================== */
-card.onclick = () => {
-  card.classList.toggle("flipped")
-}
+// ======================
+// CARD FLIP
+// ======================
+card.onclick = () => card.classList.toggle("flipped")
 
-/* ======================
-   SRS
-====================== */
+// ======================
+// SRS CALC
+// ======================
 function calcNextDays(point) {
   if (point <= 1) return 0
   if (point === 2) return 1
   return point * 2 - 3
 }
 
-/* ======================
-   ANSWER
-====================== */
+// ======================
+// ANSWER
+// ======================
 async function answer(isCorrect) {
   await initStreakIfNeeded()
 
   const prevPoint = current.point ?? 0
   const point = isCorrect ? prevPoint + 1 : 0
-
   const days = calcNextDays(point)
   const next = new Date()
   next.setDate(next.getDate() + days)
@@ -232,21 +211,20 @@ async function answer(isCorrect) {
 correctBtn.onclick = () => answer(true)
 wrongBtn.onclick = () => answer(false)
 
-/* ======================
-   VISIBILITY / FOCUS
-====================== */
+// ======================
+// VISIBILITY / FOCUS
+// ======================
 document.addEventListener("visibilitychange", () => {
   if (document.visibilityState === "hidden") stopStudy()
   else startStudy()
 })
-
 window.addEventListener("blur", stopStudy)
 window.addEventListener("focus", startStudy)
 window.addEventListener("beforeunload", stopStudy)
 
-/* ======================
-   START
-====================== */
+// ======================
+// START
+// ======================
 await loadProfile()
 await loadQueue()
 showNext()

@@ -1,19 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Add Vocab</title>
+
+  <script>
+    (function () {
+      const theme = localStorage.getItem("theme") || "light";
+      document.documentElement.classList.add(theme);
+    })();
+  </script>
+
+  <link rel="stylesheet" href="./css/theme.css">
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/add.css">
 </head>
 <body>
-  <h2>Add Vocab</h2>
+  <div class="container">
+    <h2>Add Vocabulary</h2>
 
-  <input id="word" placeholder="word"><br>
-  <textarea id="meaning" placeholder="meaning"></textarea><br>
-  <textarea id="para" placeholder="paraphrase"></textarea><br>
-  <textarea id="ex" placeholder="example"></textarea><br>
+    <form id="add-form">
+      <input id="word" placeholder="Word" required>
+      <input id="word_type" placeholder="Word Type">
+      <input id="topic" placeholder="Topic">
+      <textarea id="meaning" placeholder="Meaning" required></textarea>
+      <textarea id="para" placeholder="Paraphrase"></textarea>
+      <textarea id="ex" placeholder="Example"></textarea>
+      <button id="add" type="submit">Add</button>
+    </form>
+  </div>
 
-  <button id="add">Add</button>
-
-  <script type="module" src="js/add.js"></script>
+  <script type="module" src="./js/add.js"></script>
 </body>
 </html>

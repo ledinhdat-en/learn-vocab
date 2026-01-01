@@ -5,78 +5,49 @@
   <title>Flashcard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-   <script>
+  <script>
     (function () {
       const theme = localStorage.getItem("theme") || "light";
       document.documentElement.classList.add(theme);
     })();
   </script>
 
-  <!-- CSS CHUNG -->
   <link rel="stylesheet" href="./css/theme.css">
   <link rel="stylesheet" href="./css/base.css">
   <link rel="stylesheet" href="./css/flashcard.css">
 </head>
 
 <body>
-
   <div class="page page-flashcard">
-
-    <!-- HEADER -->
     <header class="header">
       <h2 class="title">📖 Flashcard</h2>
-
-      <button class="btn ghost" onclick="location.href='dashboard.html'">
-        ⬅ Dashboard
-      </button>
+      <button class="btn ghost" onclick="location.href='dashboard.html'">⬅ Dashboard</button>
     </header>
 
-    <!-- CARD WRAPPER -->
     <main class="flashcard-wrapper">
-
-      <!-- CARD (CLICK TO FLIP) -->
       <div class="flashcard-card" id="card">
-
-        <!-- FRONT -->
         <div class="card-face card-front">
           <div class="word" id="word">word</div>
           <div class="hint muted">Tap để xem nghĩa</div>
         </div>
 
-        <!-- BACK -->
         <div class="card-face card-back">
           <div class="meaning" id="meaning">meaning</div>
-
-          <div class="paraphrase muted" id="paraphrase">
-            paraphrase
-          </div>
-
-          <div class="example muted" id="example">
-            example
-          </div>
-
-          <div class="hint muted">
-            Tap để quay lại
-          </div>
+          <div class="paraphrase muted" id="paraphrase">paraphrase</div>
+          <div class="example muted" id="example">example</div>
+          <div class="word-type muted" id="word_type">word type</div>
+          <div class="topic muted" id="topic">topic</div>
+          <div class="hint muted">Tap để quay lại</div>
         </div>
-
       </div>
     </main>
 
-    <!-- ACTION BUTTONS -->
     <section class="actions actions-large">
-      <button id="wrong" class="btn danger big">
-        ❌ Chưa nhớ
-      </button>
-
-      <button id="correct" class="btn primary big">
-        ✅ Đã nhớ
-      </button>
+      <button id="wrong" class="btn danger big">❌ Chưa nhớ</button>
+      <button id="correct" class="btn primary big">✅ Đã nhớ</button>
     </section>
-
   </div>
 
-  <!-- LOGIC -->
   <script type="module" src="./js/flashcard.js"></script>
   <script type="module" src="./js/theme.js"></script>
 </body>
